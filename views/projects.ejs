@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <script src="https://code.iconify.design/1/1.0.4/iconify.min.js"></script>
+    <%- include('./partials/title-icon.ejs') %>    
+    <title> <%= title %>  </title>
+</head>
+<body>
+
+    <!-- 
+
+        NAV BAR
+
+     -->
+
+     <%- include('./partials/navbar.ejs') %>    
+    
+    <!-- -->
+
+    <!-- 
+
+        MAIN CONTENT
+        OF THE WEBPAGE
+
+     -->
+
+    <div class="website-section">
+        <h2>
+            Projects
+        </h2>
+    </div>
+
+    <div class="content-wrapper">
+        <ul class="ul-wrapper" id="ul-wrapper">
+            <% for (let x = 0; x <= 51; x++) { %>
+                <div class="week-wrapper">
+                    <a href="#" class="week-link">
+                        <li class="week-li">
+                            <div class="week-content">
+                                <div class="week-number">
+                                    <h3>Week <%= x + 1 %></h3>
+                                </div>
+                                <div class="week-project-name">
+                                    <% if (x < tRecords.records.length) { %> 
+                                    <h4> <%= tRecords.records[x].fields.Name %> </h4>
+                                    <% } %> 
+                                </div>
+                                <div class="week-project-description">
+                                    <% if (x < tRecords.records.length) { %> 
+                                    <p> <%= tRecords.records[x].fields.Description %> </p>
+                                    <% } %> 
+                                </div>
+                                <div class="week-frames">
+                                    <% if ( x < tRecords.records.length) { %> 
+                                    <h6> Start: <%= tRecords.records[x].fields.Start %> <br> End: <%= tRecords.records[x].fields.End %> </h6>
+                                    <% } %> 
+                                </div>
+                                <div class="results-div">
+                                    <% if ( x < tRecords.records.length) { %> 
+                                    <h5> <%= tRecords.records[x].fields.Results %> </h5>
+                                    <% } %> 
+                                </div>
+                                <div class="result-check">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                        </li>
+                    </a> 
+                </div>
+            <% } %> 
+        </ul>
+
+    </div>
+
+    <div class="streak-counter">
+        <h3>
+            <% var projectCounter = 0 %> 
+            <% for (var y = 0; y < tRecords.records.length; y++) { %>
+                <% console.log(tRecords.records[y].fields.Start) %> 
+                <% if (tRecords.records[y].fields.Status === 'Done' || tRecords.records[y].fields.Status === 'In process') { %> 
+                    <% projectCounter += 1 %>
+                <% } %>  
+            <% } %> 
+            <%= projectCounter %> / 52
+        </h3>
+    </div>
+
+    <!-- -->
+
+    <!-- 
+        DARK / LIGHT 
+        THEME SWITCHER 
+    -->
+
+    <%- include('./partials/theme-switcher.ejs') %>    
+
+    <!-- -->
+
+    <!-- 
+
+        SCRIPTS & DEPENDENCIES
+
+     -->
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.documentElement.style.setProperty('--background-color', '#fff');
+            document.documentElement.style.setProperty('--words-color', '#333'); 
+            document.documentElement.style.setProperty('--black-white', '#000'); 
+        })
+
+        const color = ['green', 'turquoise', 'teal', 'tomato', 'orangered', 'orange', 'orchid', 'aquamarine', 'chartreuse', 'crimson', 'cadetblue', 'coral', 'chocolate', 'dodgerblue', 'deeppink', 'fuchsia', 'forestgreen', 'hotpink', 'indigo', 'olive', 'olivedrab', 'palegreen', 'lawngreen', 'lime', 'limegreen', 'mediumblue', 'red', 'springgreen']
+
+        const randomNum = Math.floor(Math.random() * (color.length - 1))
+
+        document.documentElement.style.setProperty('--main-color', `${color[randomNum]}`);
+
+        const toggleBtn = document.querySelector('.toggle-slot')
+
+        const h4Array = document.querySelectorAll('h4')
+        const h6Array = document.querySelectorAll('h6')
+        const pArray = document.querySelectorAll('p')
+        const liArray = document.querySelectorAll('li')
+
+        const h5Array = document.querySelectorAll('h5')
+        const resultCheckArray = document.querySelectorAll('.result-check')
+
+        toggleBtn.addEventListener("click", () => {
+            toggleBtn.classList.toggle("active");
+            if (toggleBtn.classList.contains("active") === true) {
+                document.documentElement.style.setProperty('--background-color', '#333');
+                document.documentElement.style.setProperty('--words-color', '#ccc');
+                document.documentElement.style.setProperty('--black-white', '#fff'); 
+            } else {
+                document.documentElement.style.setProperty('--background-color', '#fff');
+                document.documentElement.style.setProperty('--words-color', '#333');
+                document.documentElement.style.setProperty('--black-white', '#000'); 
+            }
+        })
+
+        for (let x = 0; x < liArray.length; x++) {
+            if (pArray[x].innerText != undefined || pArray[x].innerText != null || h4Array[x].innerText != undefined || h4Array[x].innerText != null || h6Array[x].innerText != undefined || h6Array[x].innerText != null) {
+                liArray[x].style.fontSize = '25px'
+                liArray[x].style.color = 'var(--black-white)'
+            }
+            
+            if (h5Array[x].innerText != '  ') {
+                resultCheckArray[x].style.display = 'block'
+            }
+        }
+
+    </script>
+
+    <!-- -->
+
+</body>
+
+</html>

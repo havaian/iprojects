@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <script src="https://code.iconify.design/1/1.0.4/iconify.min.js"></script>
+    <%- include('./partials/title-icon.ejs') %>    
+    <title> <%= title %>  </title>
+</head>
+<body>
+
+    <!-- 
+
+        NAV BAR
+
+     -->
+
+     <%- include('./partials/navbar.ejs') %>    
+    
+    <!-- -->
+
+    <!-- 
+
+        MAIN CONTENT
+        OF THE WEBPAGE
+
+     -->
+
+    <div class="website-section">
+        <h2>
+            Nofap
+        </h2>
+    </div>
+
+     <div class="content-wrapper">
+        <ul class="ul-wrapper" id="ul-wrapper">
+            <% var dateDifference = Math.floor((Date.parse(new Date()) - Date.parse(tRecords.records[tRecords.records.length - 1].fields.Start)) / 1000 / 60 / 60 / 24) %> 
+            <% if (dateDifference > 0) { %> 
+                <% for (let x = 0; x <= dateDifference; x++) {%> 
+                    <div class="week-wrapper">
+                        <a href="#" class="week-link">
+                            <li class="week-li active">
+                            </li>
+                        </a> 
+                    </div>
+                <% } %> 
+            <% } %>
+            <% var leftNum = (89 - dateDifference) %> 
+            <% for (let x = 0; x <= leftNum; x++) {%> 
+                <div class="week-wrapper">
+                    <a href="#" class="week-link">
+                        <li class="week-li">
+                        </li>
+                    </a> 
+                </div>
+            <% } %> 
+        </ul>
+
+    </div>
+
+    <div class="streak-counter">
+        <h3>
+            <%= dateDifference %> / 90
+        </h3>
+    </div>
+
+    <!-- -->
+
+    <!-- 
+        DARK / LIGHT 
+        THEME SWITCHER 
+    -->
+
+    <%- include('./partials/theme-switcher.ejs') %>    
+
+    <!-- -->
+
+    <!-- 
+
+        SCRIPTS & DEPENDENCIES
+
+     -->
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.documentElement.style.setProperty('--background-color', '#fff');
+            document.documentElement.style.setProperty('--words-color', '#333'); 
+            document.documentElement.style.setProperty('--black-white', '#000'); 
+        })
+
+        const color = ['green', 'turquoise', 'teal', 'tomato', 'orangered', 'orange', 'orchid', 'aquamarine', 'chartreuse', 'crimson', 'cadetblue', 'coral', 'chocolate', 'dodgerblue', 'deeppink', 'fuchsia', 'forestgreen', 'hotpink', 'indigo', 'olive', 'olivedrab', 'palegreen', 'lawngreen', 'lime', 'limegreen', 'mediumblue', 'red', 'springgreen']
+
+        const randomNum = Math.floor(Math.random() * (color.length - 1))
+
+        document.documentElement.style.setProperty('--main-color', `${color[randomNum]}`);
+
+        const toggleBtn = document.querySelector('.toggle-slot')
+
+        const liArray = document.querySelectorAll('li')
+
+        toggleBtn.addEventListener("click", () => {
+            toggleBtn.classList.toggle("active");
+            if (toggleBtn.classList.contains("active") === true) {
+                document.documentElement.style.setProperty('--background-color', '#333');
+                document.documentElement.style.setProperty('--words-color', '#ccc');
+                document.documentElement.style.setProperty('--black-white', '#fff'); 
+            } else {
+                document.documentElement.style.setProperty('--background-color', '#fff');
+                document.documentElement.style.setProperty('--words-color', '#333');
+                document.documentElement.style.setProperty('--black-white', '#000'); 
+            }
+        })
+
+        for (let x = 0; x < liArray.length; x++) {
+            if (liArray[x].classList.contains('active') === true) {
+                liArray[x].style.fontSize = '20px'
+                liArray[x].style.color = 'var(--black-white)'
+            }
+        }
+
+    </script>
+
+    <!-- -->
+
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="icon" href="Yellow_icon.svg.png" type="image/gif">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <script src="https://code.iconify.design/1/1.0.4/iconify.min.js"></script>
+    <title> <%= title %> </title>
+</head>
+<body>
+    
+    <div class="overview-wrapper">
+
+        <div class="overview-section">
+
+            <a href="/projects">
+                <h2>
+                    <% var projectsDifference = 0 %> 
+                    <% for (let x = 0; x < projects.records.length; x++) {%>
+                        <% if (projects.records[x].fields.Start != '  ' && projects.records[x].fields.End != '  ') {%> 
+                            <% projectsDifference += 1 %> 
+                        <% } %> 
+                    <% } %>  
+                    <%= projectsDifference %> / 52
+                </h2>
+            </a>
+            <a href="/projects">
+                <i class="far fa-lightbulb"></i>
+            </a>
+
+        </div>
+
+        <div class="overview-section">
+            
+            <a href="/workout">
+                <h2>
+                    <% var workoutDifference = Math.floor((Date.parse(new Date()) - Date.parse(nofap.records[workout.records.length - 1].fields.Start)) / 1000 / 60 / 60 / 24) %> 
+                    <%= workoutDifference %> / 90
+                </h2>
+            </a>
+            <a href="/workout">
+                <i class="fas fa-dumbbell"></i>
+            </a>
+
+        </div>
+
+        <div class="overview-section">
+            
+            <a href="/sleep">
+                <h2>
+                    <% var sleepDifference = Math.floor((Date.parse(new Date()) - Date.parse(nofap.records[sleepDifference.records.length - 1].fields.Start)) / 1000 / 60 / 60 / 24) %> 
+                    <%= sleepDifference %> / 90
+                </h2>
+            </a>
+            <a href="/sleep">
+                <i class="fas fa-bed"></i>
+            </a>
+
+        </div>
+
+        <div class="overview-section">
+            
+            <a href="/reading">
+                <h2>
+                    <% var readingDifference = Math.floor((Date.parse(new Date()) - Date.parse(nofap.records[readingDifference.records.length - 1].fields.Start)) / 1000 / 60 / 60 / 24) %> 
+                    <%= readingDifference %> / 90
+                </h2>
+            </a>
+            <a href="/reading">
+                <i class="fas fa-book"></i>
+            </a>
+
+        </div>
+
+        <div class="overview-section">
+            
+            <a href="/japanese">
+                <h2>
+                    <% var japaneseDifference = Math.floor((Date.parse(new Date()) - Date.parse(japanese.records[japanese.records.length - 1].fields.Start)) / 1000 / 60 / 60 / 24) %> 
+                    <%= japaneseDifference %> / 90
+                </h2>
+            </a>
+            <a href="/japanese">
+                <i class="fas fa-language"></i>
+            </a>
+
+        </div>
+
+        <div class="overview-section">
+
+            <a href="/nofap">
+                <h2><% var nofapDifference = Math.floor((Date.parse(new Date()) - Date.parse(nofap.records[nofapDifference.records.length - 1].fields.Start)) / 1000 / 60 / 60 / 24) %> 
+                    <%= nofapDifference %> / 90
+                </h2>
+            </a>
+            <a href="/nofap">
+                <i class="fas fa-fist-raised"></i>
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
